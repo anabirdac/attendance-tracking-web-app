@@ -4,8 +4,24 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, useParams } from 'react-router-dom';
 import { eventGroupAPI, eventAPI, attendanceAPI, downloadFile } from '../services/api';
+import { EventList, EventDetail } from '../components/EventManagement';
+import CreateEventPage from './CreateEventPage';
+
+// Create Event Button Component
+function CreateEventButton() {
+  const navigate = useNavigate();
+  return (
+    <button 
+      onClick={() => navigate('/organizer/create-event')}
+      className="btn"
+      style={{ marginBottom: '1.5rem' }}
+    >
+      + Create New Event
+    </button>
+  );
+}
 
 // Event Groups Management Component
 function EventGroupsManagement() {
@@ -194,6 +210,27 @@ export default function OrganizerDash() {
           </Link>
           <EventGroupsManagement />
         </div>
+      } />
+      <Route path="/events" element={
+        <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+            <div>
+              <Link to="/organizer/dashboard" className="btn btn-secondary">
+                ← Back to Dashboard
+              </Link>
+            </div>
+            <CreateEventButton />
+          </div>
+          <EventList />
+        </div>
+      } />
+      <Route path="/event/:eventId" element={
+        <div className="container">
+          <EventDetail />
+        </div>
+      } />
+      <Route path="/create-event" element={
+        <CreateEventPage />
       } />
       <Route path="*" element={
         <div className="container">
