@@ -44,11 +44,6 @@ const PORT = process.env.PORT || 4000;
       console.log('DB synced');
     } else {
       console.log('DB sync skipped (production mode)');
-    }!== 'production') {
-      await db.sync({ alter: true });
-      console.log('DB synced');
-    } else {
-      console.log('DB sync skipped (production mode)');
     }
 
     // start cron job
