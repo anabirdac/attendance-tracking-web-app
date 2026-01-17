@@ -34,7 +34,7 @@
     "qrcode": "^1.5.3",
     "axios": "^1.6.2",
     "node-cron": "^3.0.2",
-    "json2csv": "^6.0.0",
+    "json2csv": "^5.0.7",
     "exceljs": "^4.3.0"
   },
   "devDependencies": {
