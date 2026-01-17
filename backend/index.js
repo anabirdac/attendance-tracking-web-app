@@ -38,8 +38,13 @@ const PORT = process.env.PORT || 4000;
     await db.authenticate();
     console.log('DB connected');
     
-    await db.sync({ alter: true });
-    console.log('DB synced');
+    // Skip sync on Render to avoid storage quota issues with FreeSQLDB
+    if (process.env.NODE_ENV !== 'production') {
+      await db.sync({ alter: true });
+      console.log('DB synced');
+    } else {
+      console.log('DB sync skipped (production mode)');
+    }
 
     // start cron job
     startEventStateCron();
