@@ -39,11 +39,14 @@ function EventGroupsManagement() {
     try {
       setLoading(true);
       const response = await eventGroupAPI.getAll();
-      setGroups(response.data);
+      // Handle both array and wrapped response
+      const groupData = Array.isArray(response.data) ? response.data : (response.data?.data || []);
+      setGroups(groupData);
       setError('');
     } catch (err) {
       setError('Failed to load event groups');
       console.error(err);
+      setGroups([]);
     } finally {
       setLoading(false);
     }

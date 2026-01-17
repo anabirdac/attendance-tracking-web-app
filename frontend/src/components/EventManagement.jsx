@@ -25,12 +25,17 @@ export function EventList() {
         eventAPI.getAll(),
         eventGroupAPI.getAll()
       ]);
-      setEvents(eventsRes.data);
-      setGroups(groupsRes.data);
+      // Handle both array and wrapped response
+      const eventData = Array.isArray(eventsRes.data) ? eventsRes.data : (eventsRes.data?.data || []);
+      const groupData = Array.isArray(groupsRes.data) ? groupsRes.data : (groupsRes.data?.data || []);
+      setEvents(eventData);
+      setGroups(groupData);
       setError('');
     } catch (err) {
       setError('Failed to load events');
       console.error(err);
+      setEvents([]);
+      setGroups([]);
     } finally {
       setLoading(false);
     }
